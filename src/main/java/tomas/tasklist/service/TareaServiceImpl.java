@@ -2,6 +2,7 @@ package tomas.tasklist.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,14 +40,23 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaDTO updateTask(TareaDTO tarea, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTask'");
+        Optional<TareaEntidad> optEn = repositorio.findById(id);
+        TareaDTO dto = null;
+        if (optEn.isPresent()) {
+            TareaEntidad entidad = optEn.get();
+            entidad.setTitulo(tarea.getTitulo());
+            entidad.setDescripcion(tarea.getDescripcion());
+            entidad.setHecho(tarea.isHecho());
+            entidad.setFechaCreacion(tarea.getFechaCreacion());
+            repositorio.save(entidad);
+            dto = convertidor.convertEntidadaDTO(entidad);
+        }
+        return dto;
     }
 
     @Override
     public void deleteTask(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTask'");
+        repositorio.deleteById(id);
     }
     
 }

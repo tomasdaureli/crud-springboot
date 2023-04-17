@@ -36,13 +36,14 @@ public class TareaControlador {
     }
 
     @PatchMapping("modify-task/{id}")
-    public void updateTask(@RequestBody TareaDTO tarea, @PathVariable Long id) {
-
+    public TareaDTO updateTask(@RequestBody TareaDTO tarea, @PathVariable Long id) {
+        return servicio.updateTask(tarea, id);
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteTask(@PathVariable Long id) {
-
+    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
+        servicio.deleteTask(id);
+        return new ResponseEntity<>("La tarea ha sido eliminada exitosamente.", HttpStatus.OK);
     }
     
 }

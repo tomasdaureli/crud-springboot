@@ -32,8 +32,9 @@ public class TareaServiceImpl implements TareaService {
 
     @Override
     public TareaDTO createTask(TareaDTO tarea) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createTask'");
+        TareaEntidad entidad = convertidor.convertDTOaEntidad(tarea);
+        entidad = repositorio.save(entidad);
+        return convertidor.convertEntidadaDTO(entidad);
     }
 
     @Override

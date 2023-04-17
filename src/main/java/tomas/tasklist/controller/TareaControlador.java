@@ -31,8 +31,8 @@ public class TareaControlador {
     }
 
     @PostMapping("new-task")
-    public void createTask(@RequestBody TareaDTO tarea) {
-
+    public TareaDTO createTask(@RequestBody TareaDTO tarea) {
+        return servicio.createTask(tarea);
     }
 
     @PatchMapping("modify-task/{id}")
